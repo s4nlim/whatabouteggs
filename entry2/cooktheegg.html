@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Want it burnt or raw?</title>
+
+  <link rel="stylesheet" href="switch.css">
+  <link rel="stylesheet" href="loader.css">
+  <link rel="stylesheet" href="lightswitch.css">
+  <link rel="stylesheet" href="entry2backbuttonstyle.css" />
+
+  <style>
+    .splash{position:fixed;inset:0;display:grid;place-items:center;background:#ffffff;z-index:100;animation:splash-hide .6s ease 3s forwards}
+    @keyframes splash-hide{to{opacity:0;visibility:hidden;pointer-events:none}}
+
+    .egg-display{position:relative;width:min(480px,90vw);aspect-ratio:1/1;margin:24px auto 0}
+    .egg-display img{position:absolute;inset:0;margin:auto;max-width:100%;max-height:100%;object-fit:contain;opacity:0;transition:opacity .35s ease}
+
+   body:has(#switch_off:checked) .egg-display .stage-0 { opacity: 1; }
+    body:has(#switch_1:checked)   .egg-display .stage-1 { opacity: 1; }
+    body:has(#switch_2:checked)   .egg-display .stage-2 { opacity: 1; }
+    body:has(#switch_3:checked)   .egg-display .stage-3 { opacity: 1; }
+    body:has(#switch_4:checked)   .egg-display .stage-4 { opacity: 1; }
+    body:has(#switch_5:checked)   .egg-display .stage-5 { opacity: 1; }
+
+     /* when light on */
+    @supports selector(body:has(#lightswitch:checked)){
+    body:has(#lightswitch:checked){ color:#111; }
+    body:has(#lightswitch:checked)::before{
+        background-color:#fff;
+        --color:#e6e7eb;
+        background-image:
+        linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent);
+    }
+    }
+
+     /* Grid background */
+    body { height: 100%; margin: 0; }
+    body { background: none; }
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -100;
+        background-color: #212121;
+        --color: #373737;
+        background-image:
+      linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent),
+      linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent);
+        background-size: 55px 55px;
+        background-repeat: repeat;
+        background-position: center;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="splash" aria-hidden="true">
+    <div class="loader" role="img" aria-label="Loading"></div>
+  </div>
+
+  <input id="lightswitch" type="checkbox">
+  <label class="lightswitch" for="lightswitch" aria-label="Toggle page background"></label>
+
+    <div class="de">
+      <div class="den">
+        <hr class="line"><hr class="line"><hr class="line">
+        <div class="switch" aria-label="Egg Stage Dial">
+          <label for="switch_off"><span>OFF</span></label>
+          <label for="switch_1"><span>1</span></label>
+          <label for="switch_2"><span>2</span></label>
+          <label for="switch_3"><span>3</span></label>
+          <label for="switch_4"><span>4</span></label>
+          <label for="switch_5"><span>5</span></label>
+
+          <input type="radio" checked name="switch" id="switch_off" hidden>
+          <input type="radio" name="switch" id="switch_1" hidden>
+          <input type="radio" name="switch" id="switch_2" hidden>
+          <input type="radio" name="switch" id="switch_3" hidden>
+          <input type="radio" name="switch" id="switch_4" hidden>
+          <input type="radio" name="switch" id="switch_5" hidden>
+          <div class="light"><span></span></div>
+          <div class="dot"><span></span></div>
+          <div class="dene"><div class="denem"><div class="deneme"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="egg-display">
+      <img class="stage-0" src="imgs/egg0.png" alt="Egg 0">
+      <img class="stage-1" src="imgs/egg1.png" alt="Egg 1">
+      <img class="stage-2" src="imgs/egg2.png" alt="Egg 2">
+      <img class="stage-3" src="imgs/egg3.png" alt="Egg 3">
+      <img class="stage-4" src="imgs/egg4.png" alt="Egg 4">
+      <img class="stage-5" src="imgs/egg5.png" alt="Egg 5">
+    </div>
+
+  <div class="corner br">
+    <a class="dot" href="../hc.html"></a>
+  </div>
+
+
+  </div>
+
+
+</body>
+</html>

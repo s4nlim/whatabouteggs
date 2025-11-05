@@ -1,0 +1,34 @@
+body {
+    background: linear-gradient(180deg, #ffbf00, #fff3ac, #ffffff);
+    font-family: Helvetica;
+    display: flex;
+    justify-content: center;
+}
+
+.list-container {
+  width: 20%;
+  height: 100%;
+  text-align: center;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: light;
+}
+
+.scroll-list {
+  flex-direction: column;
+  animation: scrollUp 4s linear infinite;
+}
+
+.scroll-list a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.scroll-list a:hover {
+  color: #ffbf00;
+}
+
+@keyframes scrollUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}

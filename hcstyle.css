@@ -1,0 +1,96 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { font-family:"Hanken Grotesk"; background: #ffffff; 
+}
+
+@font-face{
+  font-family:"Hanken Grotesk";
+  src: url("fonts/HankenGrotesk-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.toptext,
+.bottomtext {
+  display: none;
+}
+
+.main {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 3vw;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+
+.pickegg {
+  position: absolute;
+  aspect-ratio: 4 / 1;
+  
+  left: 15vw;
+  right: 15vw;
+
+  top: calc(48% - 2vw);
+  bottom: calc(35% - 5vw);
+
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1vw;
+}
+
+.pickegg a {
+  border: 2px solid deepskyblue;
+}
+
+
+.ph {
+  width: min(100vw, 2400px);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+
+  /* 이미지 확대 */
+  transform: scale(1.3);        /* 숫자 ↑ 키울수록 더 확대됨 */
+  transform-origin: center;   
+  transform: scale(1.3) translateY(-5%);
+}
+
+.mobile { display: none; }
+
+img { max-width: 100%; height: auto; display: block;}
+
+
+/* media query */
+@media (max-width: 550px) {
+
+  .main { display: none; }
+  .mobile { display: block; }
+  .hotspots { display: none; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+
+  .toptext, .bottomtext {
+    font-weight: 600;
+    display: flex;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+    padding: 10px 14px;
+}
+.toptext { top: 0; }
+.bottomtext { bottom: 0; }
+
+}

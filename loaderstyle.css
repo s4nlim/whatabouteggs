@@ -1,0 +1,16 @@
+html, body { height: 100%; }
+
+body {
+  background: #ffffff;
+  color: black;
+  font-size: 8ew;
+  font-family: "Hanken Grotesk";
+}
+
+.center {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

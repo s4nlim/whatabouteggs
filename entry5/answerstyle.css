@@ -1,0 +1,55 @@
+
+@font-face{
+  font-family:"Hanken Grotesk";
+  src: url("fonts/HankenGrotesk-Variable.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family:"Rubin Sans";
+  src:url("fonts/Rubin Sans TRIAL Bold.otf") format("opentype");
+  font-style:normal;
+  font-display:swap;
+}
+
+@font-face{
+  font-family:"ABC Gaisyr";
+  src:url("fonts/ABCGaisyr-Regular-Trial.otf") format("opentype");
+  font-style:normal;
+  font-display:swap;
+}
+
+/*
+코너 고정 FIXEDDDD
+IMPORTANT!!! "vw" <-- Responsive with the screen size
+*/
+.corner{
+  position:fixed; z-index:5;
+  font-size:3vw;
+  text-transform:uppercase;
+}
+
+.tl{top:1.25rem; left:1.25rem; line-height:1.05; font-family:"Hanken Grotesk";}
+.tr{top:1.25rem; right:1.25rem; writing-mode:vertical-rl; font-family:"Hanken Grotesk";}
+.bl{bottom:1.5rem; left:1.25rem; writing-mode:vertical-rl;transform:rotate(180deg); font-family:"Hanken Grotesk";}
+.br{bottom:1.25rem; right:1.25rem}
+.dot{
+  display:flex;
+  width:4vw; height:4vw;
+  background: url("imgs/backbutton.png"); 
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.dot:hover{opacity: 0.5;}
+
+.center{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; padding:4vw}
+
+.text{
+  text-align: center;
+  font-family: "ABC Gaisyr";
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  line-height: 2.2;
+}

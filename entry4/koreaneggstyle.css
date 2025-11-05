@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+  background: #f9c800;
+  overflow: hidden;
+}
+
+.page {
+  display: flex;
+  height: 100vh;
+}
+
+
+.left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  padding: 2rem;
+}
+
+.left img {
+  width: 1000px;
+  border: 6px solid white;
+}
+
+.left h1 {
+  font-size: 100pt;
+  font-weight: 700;
+  text-align: left;
+  line-height: 1;
+}
+
+.left h2 {
+  font-size: 40pt;
+  font-weight: 600;
+  text-align: left;
+}
+
+
+.right {
+  flex: 1;
+  margin-top: 2rem; 
+  margin-right: 9.1em;
+  display: flex;
+}
+
+.bodytext {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  font-size: 12pt;
+  line-height: 1.7;
+  color: black;
+  text-transform: uppercase;
+  text-align: justify;
+  text-justify: inter-word;
+  padding-right: 1rem;
+}
+
+.bodytext p {
+  text-indent: 2em;
+  margin-bottom: 1.5rem;
+}
+
+.flag {
+  text-decoration: none;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+
+/* SAME THING */
+.side-bar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 8%;
+  height: 100vh;
+  background-color: #232323;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.scroll-text {
+  display: flex;
+  flex-direction: column;
+  animation: scroll 60s linear infinite;
+}
+
+.scroll-text span {
+  font-size: 160px;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+@keyframes scroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+

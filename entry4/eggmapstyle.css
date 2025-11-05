@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: Helvetica;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+
+.top, .bottom {
+  flex-basis: 50%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: flex-basis 1.2s ease-in-out;
+}
+
+.top {
+  background-color: #f9c800;
+  transform-origin: top;
+}
+
+.bottom {
+  background-color: white;
+  transform-origin: bottom;
+}
+
+/* used something called flex basis, but not really sure on how it works */
+.top:hover {
+  flex-basis: 100%;
+}
+
+.top:hover ~ .bottom {
+  flex-basis: 0%;
+}
+
+.bottom:hover {
+  flex-basis: 200%;
+}
+
+.bottom:hover ~ .top {
+  flex-basis: 0%;
+}
+
+
+/* DONT TOUCH JUST LEAVE IT - SIDEBAR - SOME HOW IT WORKS */ 
+.scroll-text {
+  display: flex;
+  flex-direction: column;
+  animation: scroll 60s linear infinite;
+}
+
+.side-bar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 10%;
+  height: 100vh;
+  background-color: #232323;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.scroll-text span {
+  font-size: 200px;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+@keyframes scroll {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); } 
+}
