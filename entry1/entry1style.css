@@ -10,12 +10,9 @@ body {
     font-size: 12px;
   line-height: 1.1;
 }
-pre{
-    transform: translateX(280px);
-}
 
-#big { display: block; }
-#small { display: none; }
+#desktop { transform: translateX(280px); display: block; }
+#modile { display: none; }
 
 /* 600px 이하일 때*/
 @media (max-width: 600px) {
