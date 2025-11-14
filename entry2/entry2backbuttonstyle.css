@@ -9,7 +9,7 @@
 
 .dot{
   display:flex;
-  width:4vw; height:4vw;
+  width:5vh; height:5vh;
   background: url("imgs/backbutton.png"); 
   background-position: center;
   background-size: contain;

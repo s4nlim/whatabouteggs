@@ -1,0 +1,108 @@
+
+html,body{ height:100%; }
+body{
+  margin:0; background:#1c1c1e; color:#fff;
+  font-family:"Hanken Grotesk";
+  overflow:hidden;
+}
+
+/* BACK BUTTON */
+.corner{
+  position:fixed; z-index:5;
+  font-size:3vw;
+  text-transform:uppercase;
+}
+.tl{top:1.25rem; left:1.25rem; line-height:1.05}
+.tr{top:1.25rem; right:1.25rem; writing-mode:vertical-rl}
+.bl{bottom:1.5rem; left:1.25rem; writing-mode:vertical-rl;transform:rotate(180deg)}
+.br{bottom:1.25rem; right:1.25rem}
+.dot{
+  display:flex;
+  width:5vh; height:5vh;
+  background: url("imgs/backbuttonwhite.png"); 
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.dot:hover{opacity: 0.5;}
+/* BACK BUTTON */
+
+.chat-wrap{ height:100vh; display:flex; }
+.chat-log{
+  flex:1; overflow-y:auto;
+  padding:20px 16px 120px;
+  display:flex; flex-direction:column; gap:12px;
+}
+
+/* alightment */
+.row{ display:flex; width:100%; }
+.row.me{ justify-content:flex-end; }
+.row.other{ justify-content:flex-start; }
+
+/* text bubble */
+.bubble{
+  padding:10px 14px; line-height:1.38; font-size:16px;
+  border-radius:18px; word-break:break-word; box-shadow:0 2px 12px rgba(0, 0, 0, 0.35);
+}
+.bubble.me{ background:#0A84FF; color:#fff; border-bottom-right-radius:6px; }
+.bubble.other{ background:#3b3b3b; color:#fff; border-bottom-left-radius:6px; }
+
+.emoji{
+  font-size:56px;
+}
+
+/* 버튼 */
+.button{
+  position:fixed; left:50%; transform:translateX(-50%);
+  bottom:20px;
+  background:#2b3844; color:#888888; padding:10px 16px; border-radius:25px;
+  font-weight:600; cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,.35);
+}
+
+/* pop animation */
+.step{ opacity:0; pointer-events:none; }
+@keyframes pop{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
+
+/* priortize this animation */
+.delay-1{ animation-delay:.5s !important; }
+.delay-2{ animation-delay:.8s !important; }
+.delay-3{ animation-delay:1.1s !important; }
+.delay-4{ animation-delay:1.8s !important; }
+.delay-5{ animation-delay:2.3s !important; }
+.delay-6{ animation-delay:3s !important; }
+
+/* 스텝 토글: 각 체크 시 해당 블록들 노출 */
+#s0:checked  ~ .chat-wrap .s0{  animation:pop .28s ease-out forwards; }
+#s1:checked  ~ .chat-wrap .s1{  animation:pop .28s ease-out forwards; }
+#s2:checked  ~ .chat-wrap .s2{  animation:pop .28s ease-out forwards; }
+#s3:checked  ~ .chat-wrap .s3{  animation:pop .28s ease-out forwards; }
+#s4:checked  ~ .chat-wrap .s4{  animation:pop .28s ease-out forwards; }
+#s5:checked  ~ .chat-wrap .s5{  animation:pop .28s ease-out forwards; }
+#s6:checked  ~ .chat-wrap .s6{  animation:pop .28s ease-out forwards; }
+#s7:checked  ~ .chat-wrap .s7{  animation:pop .28s ease-out forwards; }
+#s8:checked  ~ .chat-wrap .s8{  animation:pop .28s ease-out forwards; }
+#s9:checked  ~ .chat-wrap .s9{  animation:pop .28s ease-out forwards; }
+#s10:checked ~ .chat-wrap .s10{ animation:pop .28s ease-out forwards; }
+#s11:checked ~ .chat-wrap .s11{ animation:pop .28s ease-out forwards; }
+#s12:checked ~ .chat-wrap .s12{ animation:pop .28s ease-out forwards; }
+
+/* 버튼들 one at a time */
+.button[for="s0"]{ display:block; }
+.button[for="s1"], .button[for="s2"], .button[for="s3"], .button[for="s4"],
+.button[for="s5"], .button[for="s6"], .button[for="s7"], .button[for="s8"],
+.button[for="s9"], .button[for="s10"], .button[for="s11"], .button[for="s12"],
+.button[for="s13"], .button[for="s14"]{ display:none; }
+
+#s0:checked  ~ .button[for="s0"]{ display:none; }  #s0:checked  ~ .button[for="s1"]{ display:block; }
+#s1:checked  ~ .button[for="s1"]{ display:none; }  #s1:checked  ~ .button[for="s2"]{ display:block; }
+#s2:checked  ~ .button[for="s2"]{ display:none; }  #s2:checked  ~ .button[for="s3"]{ display:block; }
+#s3:checked  ~ .button[for="s3"]{ display:none; }  #s3:checked  ~ .button[for="s4"]{ display:block; }
+#s4:checked  ~ .button[for="s4"]{ display:none; }  #s4:checked  ~ .button[for="s5"]{ display:block; }
+#s5:checked  ~ .button[for="s5"]{ display:none; }  #s5:checked  ~ .button[for="s6"]{ display:block; }
+#s6:checked  ~ .button[for="s6"]{ display:none; }  #s6:checked  ~ .button[for="s7"]{ display:block; }
+#s7:checked  ~ .button[for="s7"]{ display:none; }  #s7:checked  ~ .button[for="s8"]{ display:block; }
+#s8:checked  ~ .button[for="s8"]{ display:none; }  #s8:checked  ~ .button[for="s9"]{ display:block; }
+#s9:checked  ~ .button[for="s9"]{ display:none; }  #s9:checked  ~ .button[for="s10"]{ display:block; }
+#s10:checked ~ .button[for="s10"]{display:none; }  #s10:checked ~ .button[for="s11"]{ display:block; }
+#s11:checked ~ .button[for="s11"]{display:none; }  #s11:checked ~ .button[for="s12"]{ display:block; }
+#s12:checked ~ .button[for="s12"]{display:none; }
