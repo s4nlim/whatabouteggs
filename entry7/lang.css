@@ -1,0 +1,136 @@
+/* 화면 고정 + 래핑 플렉스 */
+body{ overflow:hidden; }
+
+.wall{
+  height:100svh;
+  display:flex;
+  flex-wrap:wrap;
+  align-content:space-evenly;
+  justify-content:space-between;
+}
+
+.cell{
+  flex: 0 0 auto;
+    --return: 3s;  
+}
+
+.stack{
+  display:grid;
+  place-items:center;
+}
+
+/* 단어: 한 줄 고정 + 크게 */
+.word{
+  grid-area: 1 / 1;
+  cursor:pointer;
+  font-weight:900;
+  font-size: 150px;
+  line-height:0.95;
+  word-break: keep-all;
+  padding:.03em;
+}
+.word:active{ transform: scale(.96); }
+
+.language{
+  font-family:"Hanken Grotesk";
+  grid-area: 1 / 1;
+  display:grid; place-items:center;
+  font-weight:500;
+  font-size: 20px;
+  letter-spacing:.02em;
+  color:#000000;
+  opacity:0;
+  pointer-events:none;
+}
+
+@keyframes overlay-in-out{
+  0%{opacity:0}
+  10%{opacity:1}
+  90%{opacity:1}
+  100%{opacity:0}
+}
+
+@-webkit-keyframes word-out-back{
+  0%   { opacity:1; transform:scale(1);    filter:blur(0); }
+  12%  { opacity:0; transform:scale(2);    filter:blur(4px); }
+  88%  { opacity:0; transform:scale(0.98); filter:blur(0); }
+  100% { opacity:1; transform:scale(1);    filter:blur(0); }
+}
+@keyframes word-out-back{
+  0%   { opacity:1; transform:scale(1);    filter:blur(0); }
+  12%  { opacity:0; transform:scale(2);    filter:blur(4px); }
+  88%  { opacity:0; transform:scale(0.98); filter:blur(0); }
+  100% { opacity:1; transform:scale(1);    filter:blur(0); }
+}
+
+.cell:has(> input:checked) .word{
+  animation: word-out-back 3.2s
+             cubic-bezier(0.165, 0.840, 0.440, 1.000) 1 both;
+  will-change: transform, filter, opacity;
+}
+
+.cell:has(> input:checked) .language{
+  animation: overlay-in-out 3.2s
+             cubic-bezier(0.165, 0.840, 0.440, 1.000) 1 both;
+}
+
+.cell audio{ display:none; }
+
+/* BACK BUTTON */
+.corner{
+  position:fixed; z-index:5;
+  font-size:3vw;
+  text-transform:uppercase;
+}
+.tl{top:1.25rem; left:1.25rem; line-height:1.05}
+.tr{top:1.25rem; right:1.25rem; writing-mode:vertical-rl}
+.bl{bottom:1.5rem; left:1.25rem; writing-mode:vertical-rl;transform:rotate(180deg)}
+.br{bottom:1.25rem; right:1.25rem}
+.dot{
+  display:flex;
+  width:5vh; height:5vh;
+  background: url("imgs/backbutton.png"); 
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.dot:hover{opacity: 0.5;}
+/* BACK BUTTON */
+
+
+@media (max-width:600px){
+  body{ overflow:auto; }
+  .wall{
+    height:auto;
+    flex-direction:column;
+    flex-wrap:nowrap;
+    justify-content:flex-start; align-content:initial;
+  }
+  .word{ font-size: 150px; text-align:center; }
+  .langugae{ font-size: 20px; place-items:start; }
+}
+
+
+.english     .word{ color:#0066FF; }
+.spanish     .word{ color:#FF7A00; }
+.french      .word{ color:#FF2F92; }
+.german      .word{ color:#00B36A; } 
+.korean      .word{ color:#ad1796; }
+.japanese    .word{ color:#6C5CE7; }
+.chinese     .word{ color:#F4C20D; }
+.arabic      .word{ color:#E67E22; }
+.italian     .word{ color:#9B59B6; }
+.portuguese  .word{ color:#16A085; }
+.dutch       .word{ color:#F94144; } 
+.russian     .word{ color:#D81B60; }
+.greek       .word{ color:#f068b3; }
+.turkish     .word{ color:#883f08; }
+.hindi       .word{ color:#FF3D00; }
+.bengali     .word{ color:#00C853; }
+.vietnamese  .word{ color:#00A7A7; }
+.thai        .word{ color:#AA00FF; }
+.polish      .word{ color:#D50000; }
+.indonesian  .word{ color:#38e1ff; }
+.filipino    .word{ color:#2962FF; }
+.swahili     .word{ color:#F59E0B; }
+.ukrainian   .word{ color:#3F51B5; }
