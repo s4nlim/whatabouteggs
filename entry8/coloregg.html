@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Color the Egg</title>
+  <link rel="stylesheet" href="coloregg.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+  <!-- 상단 컨트롤바 -->
+  <header class="controls">
+    <div class="hue-wrap">
+      <input id="hue" type="range" min="0" max="100" value="50">
+    </div>
+    <button id="go" class="button">DROP</button>
+  </header>
+
+  <main>
+    <img class="egg" src="imgs/eggdrop1.png">
+  </main>
+
+  <!-- 결과  -->
+  <div class="result" hidden>
+    <div class="result-box">
+      <p class="result-line"><span id="colorName">yellow</span> egg</p>
+      <div class="actions">
+        <button id="again" class="button">Again</button>
+        <a href="../hc.html" class="button link">Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="coloregg.js"></script>
+</body>
+</html>
