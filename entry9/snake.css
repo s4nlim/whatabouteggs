@@ -1,0 +1,83 @@
+:root{
+  --bg: #ffffff;
+  --board: #000000;
+  --snake: #4CAF50;
+  --egg: #ffe16b;     /* yolk */
+  --accent: #ffe16b;  /* subtitle, HUD accent */
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ height:100%; }
+body{font-family: 'Hanken Grotesk'; color:#fff; }
+
+.wrap{
+  min-height:100svh;
+  display:flex; flex-direction:column; align-items:center;
+  padding:18px 14px 28px;
+  background:#5f543f;                 /* nice poster feel behind the board */
+}
+
+.title{
+  font-size: clamp(28px, 5.6vw, 56px);
+  letter-spacing:.02em; font-weight:800;
+  text-align:center; color:#fff; margin-top:6px;
+}
+.subtitle{
+  color: var(--accent);
+  font-weight:700; margin:6px 0 10px; text-align:center;
+}
+
+/* HUD */
+.hud{
+  display:flex; gap:18px; align-items:center;
+  margin-bottom:6px; font-weight:700; color:#ffffff;
+}
+.hud b{ color:var(--egg); font-size:1.1em; }
+
+/* square board that holds the p5 canvas */
+.board{
+  width: min(86vw, 600px);
+  aspect-ratio: 1 / 1;
+  background: var(--board);
+  border-radius: 10px;
+  display:grid; place-items:center;
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+}
+
+/* make the p5 canvas fill the board */
+.board canvas{ width:100% !important; height:100% !important; display:block; border-radius:10px; touch-action:none; }
+
+/* mobile arrow pad */
+.pad{ display:none; margin-top:10px; align-items:center; }
+.pad button{
+  width:80px; height:80px; border-radius:50%; 
+  background:#fff; color:#222; border:none; font-size:30px; font-weight:800;
+  cursor:pointer;
+}
+.pad .lr{ display:flex; gap:14px; align-items:center; gap:80px; }
+
+
+@media (max-width:600px){
+  .pad{ display:flex; flex-direction:column; }
+}
+
+/* BACK BUTTON */
+.corner{
+  position:fixed; z-index:5;
+  font-size:3vw;
+  text-transform:uppercase;
+}
+.tl{top:1.25rem; left:1.25rem; line-height:1.05}
+.tr{top:1.25rem; right:1.25rem; writing-mode:vertical-rl}
+.bl{bottom:1.5rem; left:1.25rem; writing-mode:vertical-rl;transform:rotate(180deg)}
+.br{bottom:1.25rem; right:1.25rem}
+.dot{
+  display:flex;
+  width:5vh; height:5vh;
+  background: url("imgs/backbutton.png"); 
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.dot:hover{opacity: 0.5;}
+/* BACK BUTTON */
