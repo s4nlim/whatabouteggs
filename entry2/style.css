@@ -1,0 +1,112 @@
+/* 배경(낮) */
+body::before{
+  content:"";
+  position:fixed; inset:0; z-index:-100;
+  background:#fff;
+  --color:#e6e7eb;
+  background-image:
+    linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent);
+  background-size:55px 55px; background-position:center; background-repeat:repeat;
+}
+
+/* 기본 배경: 화이트 격자 */
+body::before{
+  content:"";
+  position:fixed; inset:0; z-index:-100;
+  background:#ffffff;
+  --color:#e6e7eb;
+  background-image:
+    linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent);
+  background-size:55px 55px; background-position:center; background-repeat:repeat;
+}
+
+/* 헤더 */
+.egg-header{
+  position:fixed; top:6vh; left:50%; transform:translateX(-50%);
+  text-align:center; z-index:20; color:#111;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+.egg-header h1{ margin:0 0 .2em; font-weight:700; font-size:clamp(20px,2.4vw,28px) }
+.egg-header p{ margin:0; opacity:.7; font-size:clamp(13px,1.6vw,16px) }
+body.fire .egg-header{ color:#5c0000 }
+
+/* 🔥 단일 토글 버튼 (우상단) */
+.heat-toggle{
+  position:fixed; top:16px; right:16px; z-index:40;
+}
+.heat-toggle .icon{
+  width:80px; height:80px; border:0; border-radius:12px; cursor: url('imgs/eggpointer.png'), pointer;
+  display:grid; place-items:center; font-size:45px;
+  background:rgba(255,80,0,.18);
+  transition:transform .15s ease;
+}
+.heat-toggle .icon:active{ transform:scale(.94) }
+body.fire .heat-toggle .icon{ background:rgba(255,80,0,.36) }
+
+/* 붉은 화염 그라데이션 오버레이 */
+.fire-overlay{
+  position:fixed; inset:0; z-index:-10;
+  transform:translateY(100%);
+  transition:transform .9s ease;
+  background:
+    linear-gradient(
+      0deg,
+      #2b0000 0%,
+      #5a0000 28%,
+      #8c0f00 48%,
+      #c52300 66%,
+      rgba(255,140,0,0.55) 82%,
+      rgba(255,255,255,0) 100%
+    );
+  pointer-events:none;
+}
+body.fire .fire-overlay{ transform:translateY(0) }
+
+/* 다이얼 위치(스위치 외형은 switch.css가 담당) */
+.dial-wrap{
+  position:fixed; left:50%; bottom:3vh; transform:translateX(-50%);
+  z-index:10;
+}
+
+/* 계란 디스플레이 */
+.egg-display{
+  position:relative; width:min(520px,90vw); aspect-ratio:1/1; margin:100px auto 0;
+}
+.egg-display img{
+  position:absolute; inset:0; margin:auto; max-width:100%; max-height:100%; object-fit:contain;
+  opacity:0; transition:opacity .35s ease;
+}
+
+/* :has() 지원 시 CSS로 스테이지 전환 */
+body:has(#switch_off:checked) .egg-display .stage-0{ opacity:1 }
+body:has(#switch_1:checked)   .egg-display .stage-1{ opacity:1 }
+body:has(#switch_2:checked)   .egg-display .stage-2{ opacity:1 }
+body:has(#switch_3:checked)   .egg-display .stage-3{ opacity:1 }
+body:has(#switch_4:checked)   .egg-display .stage-4{ opacity:1 }
+body:has(#switch_5:checked)   .egg-display .stage-5{ opacity:1 }
+
+/* 폴백: JS에서 show 클래스 부여 */
+.egg-display img.show{ opacity:1 }
+
+/* BACK BUTTON */
+.corner{
+  position:fixed; z-index:5;
+  font-size:3vw;
+  text-transform:uppercase;
+}
+.tl{top:1.25rem; left:1.25rem; line-height:1.05}
+.tr{top:1.25rem; right:1.25rem; writing-mode:vertical-rl}
+.bl{bottom:1.5rem; left:1.25rem; writing-mode:vertical-rl;transform:rotate(180deg)}
+.br{bottom:1.25rem; right:1.25rem}
+.dot{
+  display:flex;
+  width:5vh; height:5vh;
+  background: url("imgs/backbutton.png"); 
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.dot:hover{opacity: 0.5;}
+/* BACK BUTTON */
