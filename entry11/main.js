@@ -11,10 +11,10 @@ const SRC = {
 
 // 순서 무관 레시피
 const RECIPES = {
-  "egg+fire":     {type:"sunnyside"},
-  "chicken+fire": {type:"fried"},
-  "clock+egg":    {type:"chick"},
-  "chick+clock":  {type:"chicken"}
+  "egg+fire":     { type:"sunnyside" },
+  "chicken+fire": { type:"fried" },
+  "clock+egg":    { type:"chick" },
+  "chick+clock":  { type:"chicken" }
 };
 const keyFor = (a,b)=>[a,b].sort().join("+");
 
@@ -24,22 +24,27 @@ function overlaps($a, $b){
   const b = $b.offset(), bw = $b.outerWidth(), bh = $b.outerHeight();
   return !(a.left+aw < b.left || a.left > b.left+bw || a.top+ah < b.top || a.top > b.top+bh);
 }
-function uid(prefix){ return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,6)}`; }
-function rand(min,max){ return Math.random()*(max-min)+min; }
+function center($el){
+  const r = $el[0].getBoundingClientRect();
+  return { x: r.left + r.width/2, y: r.top + r.height/2 };
+}
 
-/* ---------- spawn piece ---------- */
+/* ---------- spawn piece (좌표 미지정 시: 스테이지 정중앙) ---------- */
 function spawn(type, x=null, y=null){
-  const id = uid(type);
-  const $img = $(`<img class="piece pop" data-id="${id}" data-type="${type}" alt="${type}">`)
-    .attr("src", SRC[type]);
+  const $stage = $(".stage");
+  const stageRect = $stage[0].getBoundingClientRect();
+  const defaultX = stageRect.left + stageRect.width / 2;
+  const defaultY = stageRect.top  + stageRect.height / 2;
 
-  // 위치 지정 없으면 화면 중앙 근처 랜덤
-  const W = $(window).width(), H = $(window).height();
-  const left = (x ?? rand(W*0.35, W*0.6)) - 80;
-  const top  = (y ?? rand(H*0.35, H*0.6)) - 80;
-  $img.css({left, top});
+  const left = (x ?? defaultX) - 80;
+  const top  = (y ?? defaultY) - 80;
 
-  $(".stage").append($img);
+  const $img = $(`<img class="piece pop" draggable="false" alt="${type}">`)
+    .attr("src", SRC[type])
+    .attr("data-type", type)
+    .css({ position:'absolute', left, top, width:'140px', userSelect:'none', pointerEvents:'auto' });
+
+  $stage.append($img);
   makeDraggable($img);
   return $img;
 }
@@ -53,23 +58,24 @@ function makeDraggable($el){
       const $me = $(this);
       const tMe = $me.data("type");
       const $others = $(".piece").not($me);
+
       for(const other of $others){
         const $o = $(other);
-        if(overlaps($me, $o)){
-          const tOther = $o.data("type");
-          const recipe = RECIPES[keyFor(tMe, tOther)];
-          if(recipe){
-            // spawn result at midpoint
-            const a = $me.offset(), b = $o.offset();
-            const cx = a.left + ($me.width()/2 + b.left + $o.width()/2 - a.left)/2;
-            const cy = a.top  + ($me.height()/2 + b.top  + $o.height()/2 - a.top )/2;
+        if(!overlaps($me, $o)) continue;
 
-            $me.fadeOut(120, ()=> $me.remove());
-            $o.fadeOut(120, ()=> $o.remove());
-            spawn(recipe.type, cx, cy);
-          }
-          break;
-        }
+        const tOther = $o.data("type");
+        const recipe = RECIPES[keyFor(tMe, tOther)];
+        if(!recipe) continue;
+
+        // 합성 위치 = 두 이미지 중심의 평균
+        const c1 = center($me), c2 = center($o);
+        const cx = (c1.x + c2.x) / 2;
+        const cy = (c1.y + c2.y) / 2;
+
+        $me.fadeOut(120, ()=> $me.remove());
+        $o.fadeOut(120, ()=> $o.remove());
+        spawn(recipe.type, cx, cy);
+        break; // 한 번만 처리
       }
     }
   });
@@ -77,24 +83,109 @@ function makeDraggable($el){
 
 /* ---------- init ---------- */
 $(function(){
-  // 기존 두 개(HTML에 이미 있음)도 드래그 가능하게
+  // HTML에 이미 있는 조각들도 드래그 가능하게
   $(".piece").each(function(){ makeDraggable($(this)); });
 
-  // 왼쪽 툴바: egg/clock 스폰
+  // 왼쪽 툴바: egg/clock/fire 스폰
   $(".btn.add").on("click", function(){
     const type = $(this).data("spawn");
-    // 버튼에서 살짝 오른쪽으로
+    // 버튼 오른쪽에 살짝
     const off = $(this).offset();
     spawn(type, off.left + $(this).outerWidth() + 60, off.top + 10);
   });
 
-  // Reset: egg + clock만 남기고 전부 제거/재배치
+  // Reset: egg + clock + fire만 남기고 재배치 (버그fix: fire의 data-type)
   $("#reset").on("click", function(){
     $(".piece").remove();
-    const $egg   = $(`<img class="piece" data-type="egg" src="${SRC.egg}"   alt="egg">`).css({left:"18vw", top:"18vh"});
-    const $clock = $(`<img class="piece" data-type="clock" src="${SRC.clock}" alt="clock">`).css({left:"62vw", top:"54vh"});
-    const $fire = $(`<img class="piece" data-type="clock" src="${SRC.fire}" alt="clock">`).css({left:"30vw", top:"60vh"});
-    $(".stage").append($egg, $clock, $fire);
+    const $stage = $(".stage");
+    const rect = $stage[0].getBoundingClientRect();
+
+    const $egg   = $(`<img class="piece" data-type="egg"    src="${SRC.egg}"    alt="egg">`)
+      .css({ position:'absolute', left: rect.width*0.18, top: rect.height*0.18 });
+    const $clock = $(`<img class="piece" data-type="clock"  src="${SRC.clock}"  alt="clock">`)
+      .css({ position:'absolute', left: rect.width*0.62, top: rect.height*0.54 });
+    const $fire  = $(`<img class="piece" data-type="fire"   src="${SRC.fire}"   alt="fire">`)
+      .css({ position:'absolute', left: rect.width*0.30, top: rect.height*0.60 });
+
+    $stage.append($egg, $clock, $fire);
     makeDraggable($egg); makeDraggable($clock); makeDraggable($fire);
   });
 });
+
+function spawn(type, x=null, y=null){
+  const $stage = $(".stage");
+  const rect = $stage[0].getBoundingClientRect();
+
+  // 일단 (0,0)에 붙였다가 다음 프레임에 실제 크기로 중앙 보정
+  const $img = $(`<img class="piece pop" draggable="false" alt="${type}">`)
+    .attr("src", SRC[type])
+    .attr("data-type", type)
+    .css({ position:'absolute', left:0, top:0, userSelect:'none', pointerEvents:'auto' });
+
+  $stage.append($img);
+
+  // 좌표 없으면 스테이지 정중앙, 있으면 해당 좌표
+  const cx = (x ?? rect.left + rect.width/2);
+  const cy = (y ?? rect.top  + rect.height/2);
+
+  // 이미지 실제 너비/높이 로드 후 중앙 보정
+  requestAnimationFrame(() => {
+    const w = $img.outerWidth(), h = $img.outerHeight();
+    $img.css({
+      left: cx - rect.left - w/2,
+      top:  cy - rect.top  - h/2
+    });
+  });
+
+  makeDraggable($img);
+  return $img;
+}
+
+
+function makeDraggable($el){
+  $el.draggable({
+    containment:"window",
+    scroll:false,
+    stop:function(){
+      const $me = $(this);
+      const tMe = $me.data("type");
+      const $others = $(".piece").not($me);
+
+      for(const other of $others){
+        const $o = $(other);
+        if(!overlaps($me, $o)) continue;
+
+        const tOther = $o.data("type");
+        const recipe = RECIPES[keyFor(tMe, tOther)];
+        if(!recipe) continue;
+
+        // 합성 위치(중간점)
+        const a = $me.offset(), b = $o.offset();
+        const cx = (a.left + $me.width()/2 + b.left + $o.width()/2) / 2;
+        const cy = (a.top  + $me.height()/2 + b.top  + $o.height()/2) / 2;
+
+        $me.fadeOut(120, ()=> $me.remove());
+        $o.fadeOut(120, ()=> $o.remove());
+
+        // 결과 스폰 + 알림
+        spawn(recipe.type, cx, cy);
+        alert(`You just made a ${nameOf(recipe.type)}.`);
+        break;
+      }
+    }
+  });
+}
+
+// 보기 좋은 이름 매핑
+function nameOf(t){
+  const map = {
+    sunnyside: "sunny-side egg",
+    fried:     "fried chicken",
+    chick:     "chick",
+    chicken:   "chicken",
+    egg:       "egg",
+    clock:     "clock",
+    fire:      "fire"
+  };
+  return map[t] || t;
+}
