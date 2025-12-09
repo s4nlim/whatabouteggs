@@ -1,0 +1,9 @@
+/* For the entire page */
+html {
+  cursor: url('imgs/eggcursor.png'), auto; 
+}
+
+/* For specific elements, e.g., links */
+a {
+  cursor: url('imgs/eggpointer.png'), pointer;
+}
