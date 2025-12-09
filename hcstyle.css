@@ -68,7 +68,7 @@ img { max-width: 100%; height: auto; display: block;}
 
 
 /* media query */
-@media (max-width: 550px) {
+@media (max-width: 600px) {
 
   .main { display: none; }
   .mobile { display: block; }

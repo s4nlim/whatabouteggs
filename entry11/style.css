@@ -43,3 +43,24 @@ body{margin:0; font-family: "Hanken Grotesk";color:#1a1400}
 @media (max-width:600px){
   .piece{ width:min(40vw,220px) }
 }
+
+/* BACK BUTTON */
+.corner{
+  position:fixed; z-index:5;
+  font-size:3vw;
+  text-transform:uppercase;
+}
+.tl{top:1.25rem; left:1.25rem; line-height:1.05}
+.tr{top:1.25rem; right:1.25rem; writing-mode:vertical-rl}
+.bl{bottom:1.5rem; left:1.25rem; writing-mode:vertical-rl;transform:rotate(180deg)}
+.br{bottom:1.25rem; right:1.25rem}
+.dot{
+  display:flex;
+  width:5vh; height:5vh;
+  background: url("imgs/backbutton.png"); 
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.dot:hover{opacity: 0.5;}
+/* BACK BUTTON */
