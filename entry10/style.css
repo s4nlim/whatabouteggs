@@ -2,7 +2,7 @@
 html,body{ height:100% }
 body{
   margin:0;
-  font:14px/1.5 "Hanken Grotesk", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font:14px/1.5 "Hanken Grotesk";
   background:#f5f6f8;
   color:#333;
 }
@@ -35,8 +35,9 @@ body{
 .stage{
   width:95%;
   height:95%;
-  position:center;
-  overflow:hidden;
+  position:relative;
+  overflow:hidden;    
+  padding-left:30px;           /* 넘치면 가림 */
 }
 
 .stage svg{
